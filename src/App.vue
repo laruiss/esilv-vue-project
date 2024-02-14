@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import BasicInput from './components/BasicInput.vue';
 </script>
 
 <template>
