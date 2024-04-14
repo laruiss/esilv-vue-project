@@ -4,14 +4,13 @@ import { getMarvelApiUrl } from '../utils/marvel-api'
 
 const url = getMarvelApiUrl('comics')
 const title = ref('')
-const result = ref([])
 
 fetch(url, {})
-  .then((response) => response.json())
+  .then(response => response.json())
   .then((data) => {
     title.value = data.data.results[0].title
   })
-  .catch((error) => console.error(error))
+  .catch(error => console.error(error))
 </script>
 
 <template>

@@ -3,9 +3,10 @@ import { ref } from 'vue'
 
 import { getMarvelCharacter } from '../utils/marvel-api'
 
+const props = defineProps(['id'])
+
 const character = ref({})
 
-const props = defineProps(['id'])
 getMarvelCharacter(props.id)
   .then(char => character.value = char)
 </script>

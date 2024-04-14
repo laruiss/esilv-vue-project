@@ -17,29 +17,30 @@ const disabled = computed(() => {
     || password.value === ''
 })
 
-function validateUsername($event) {
-  console.log($event)
-  if ($event.length < 3) {
-    errorMessageUsername.value = 'Le nom d’utilisateur doit contenir au moins 3 caractères'
-  } else {
-    errorMessageUsername.value = ''
-  }
-}
+// function validateUsername ($event) {
+//   console.log($event)
+//   if ($event.length < 3) {
+//     errorMessageUsername.value = 'Le nom d’utilisateur doit contenir au moins 3 caractères'
+//   } else {
+//     errorMessageUsername.value = ''
+//   }
+// }
 
 fetch('/api/auth/token', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
     username: 'admin',
-    password: 'admin'
+    password: 'admin',
+  }),
+})
+  .then(response => response.json())
+  .then((/* data */) => {
+    // TODO: Do something with the data
+    // console.log(data)
   })
-})
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data)
-})
 </script>
 
 <template>
@@ -49,25 +50,27 @@ fetch('/api/auth/token', {
         <legend>Connexion</legend>
         <BasicInput
           id="username"
+          v-model="username"
           label="Nom d’utilisateur"
           type="text"
           placeholder="jbond"
-          v-model="username"
-          :errorMessage="errorMessageUsername"
-          :validMessage="validMessageUsername"
+          :error-message="errorMessageUsername"
+          :valid-message="validMessageUsername"
         />
         {{ username }}
         <BasicInput
           id="password"
+          v-model="password"
           label="Mot de passe"
           type="password"
-          v-model="password"
           placeholder="5CR37P455"
-          :errorMessage="errorMessagePassword"
-          :validMessage="validMessagePassword"
+          :error-message="errorMessagePassword"
+          :valid-message="validMessagePassword"
         />
         {{ password }}
-        <button type="reset">Recommencer</button>
+        <button type="reset">
+          Recommencer
+        </button>
         <button
           type="submit"
           :disabled="disabled"
